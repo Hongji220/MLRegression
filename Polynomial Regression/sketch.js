@@ -99,7 +99,7 @@ function draw() {
 	
 	 
 	tf.tidy(() => {
-				if (x_vals.length > 0) {
+				if (x_vals.length > 1) {
 					const ys = tf.tensor1d(y_vals);
 					optimizer.minimize(() => loss(predict(x_vals), ys));
 
