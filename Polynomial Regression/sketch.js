@@ -109,6 +109,7 @@ function draw() {
 	let outputbtn = select("#outputbtn");
 	let defaultUnchecked = select("#defaultUnchecked");
 	
+	
 
 
 
@@ -118,7 +119,7 @@ function draw() {
             outputbtn.mousePressed(() => {
 
                 tf.tidy(() => {
-					if (defaultUnchecked.value()){
+					if (defaultUnchecked.value() == "on"){
                     outputvar.html(predict([inputvar.value()]));
 					}
 					else {
