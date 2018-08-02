@@ -18,7 +18,7 @@ function setup() {
     createP("Learning Rate:").id("para1");
     createSlider(0, 1, 0.01, 0.01).id("slider1");
     createP("FrameRate:").id("para2");
-    createSlider(1, 60, 30, 1).id("slider2");
+    createSlider(1, 60, 60, 1).id("slider2");
     createP("Polynomial Degree:").id("para3");
     createP("Epoch:  " + epoch).id("para4");
     createSlider(1, 3, 3, 1).id("slider3");
@@ -119,12 +119,11 @@ function draw() {
             outputbtn.mousePressed(() => {
 
                 tf.tidy(() => {
-					if (defaultUnchecked.value() == "on"){
-                    outputvar.html(predict([inputvar.value()]));
+					if (defaultUnchecked.attribute('checked')){
+                    outputvar.html("£" + round(predict([map(inputvar.value(),0,1000,0,1)]).dataSync()[0]*150000));
 					}
 					else {
-						console.log("lol");
-						outputvar.html("predict([inputvar.value()])");
+						outputvar.html(predict([inputvar.value()]).dataSync());
 					}
                 });
             });
@@ -186,7 +185,6 @@ function draw() {
 
     });
     optimizer.dispose();
-    console.log(tf.memory().numTensors)
 
 
 }
