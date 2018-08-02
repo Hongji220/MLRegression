@@ -5,23 +5,23 @@ let a, b, c, d; // Creating the slope and bias variables
 let learningRate;
 let epoch = 0;
 
-
-
 function setup() {
     frameRate(60);
     createCanvas(500, 500).id("canvas1");
-	stroke(255);
-	line(0, height/2, width, height/2);
-	
+    stroke(255);
+    line(0, height / 2, width, height / 2);
+
 
     //Initialising Sliders:
     createP("Learning Rate:").id("para1");
-    createSlider(0, 1, 0.01, 0.01).id("slider1");
+    createSlider(0, 1, 0.2, 0.01).id("slider1");
     createP("FrameRate:").id("para2");
     createSlider(1, 60, 60, 1).id("slider2");
     createP("Polynomial Degree:").id("para3");
     createP("Epoch:  " + epoch).id("para4");
     createSlider(1, 3, 3, 1).id("slider3");
+
+    $('input[name=housePrice]').prop('checked', false);
 
 
 
@@ -106,10 +106,9 @@ function draw() {
 
     let inputvar = select("#inputvar");
     let outputvar = select("#outputvar");
-	let outputbtn = select("#outputbtn");
-	let defaultUnchecked = select("#defaultUnchecked");
-	
-	
+    let outputbtn = select("#outputbtn");
+    let defaultUnchecked = select("#defaultUnchecked");
+
 
 
 
@@ -117,14 +116,12 @@ function draw() {
         if (x_vals.length > 2) {
             inputvar.removeAttribute('disabled');
             outputbtn.mousePressed(() => {
-
                 tf.tidy(() => {
-					if (defaultUnchecked.attribute('checked')){
-                    outputvar.html("£" + round(predict([map(inputvar.value(),0,1000,0,1)]).dataSync()[0]*150000));
-					}
-					else {
-						outputvar.html(predict([inputvar.value()]).dataSync());
-					}
+                    if ($('input[name=housePrice]').prop('checked')) {
+                        outputvar.html("£" + round(predict([map(inputvar.value(), 0, 1000, 0, 1)]).dataSync()[0] * 150000));
+                    } else {
+                        outputvar.html(predict([inputvar.value()]).dataSync());
+                    }
                 });
             });
 
@@ -185,6 +182,5 @@ function draw() {
 
     });
     optimizer.dispose();
-
 
 }
